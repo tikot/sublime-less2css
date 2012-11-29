@@ -6,13 +6,25 @@
  * DO NOT modify this file,
  * Copy the content to user settings
  * via "Preferences" -> "Package Settings" -> "Less2Css" -> "Settings - User".
- * 
- */
- 
+ *
+ *
+ * To Compile one file, with all less imports edit your .sublime-project
+ * EX.
+ *
+ *	"settings":
+ *   {
+ *   	"oneFile": " Path to your .less file with @import "
+ *   }
+ *
+ *
+ *
+ * */
+
 {
-  "lessBaseDir": "./",
-  "outputDir": "./",
-  "minify": true,
-  "autoCompile": true,
-  "showErrorWithWindow": false
+	"oneFile": false,
+	"lessBaseDir": "./",
+	"outputDir": "./",
+	"minify": true,
+	"autoCompile": true,
+	"showErrorWithWindow": false
 }

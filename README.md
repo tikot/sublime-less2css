@@ -1,28 +1,47 @@
 # sublime-less2css
 
+
 Sublime Text 2 Plugin to compile less files to css on save
 Requires lessc installed on PATH
 
-# Features
-
+## Features
 
  * Automatically compile less -> css on save when editing a .less file in sublime
  * Reports compilation errors
  * Compile all less files in a directory to css files
+ * Compile one file with less '@import'
  
 NB This plugin requires lessc to be in your execution path 
 
 # Installation
 
+
 ## Install The Plugin
 
-Either clone into your sublime packages directory, or just use [Package Control](https://github.com/wbond/sublime_package_control/)
+***With Git:*** Clone the repository in your Sublime Text 2 "Packages" directory:
+
+    git clone git://github.com/tikot/sublime-less2css.git
+
+The "Packages" directory is located at:
+
+* OS X:
+
+        ~/Library/Application Support/Sublime Text 2/Packages/
+
+* Linux:
+
+        ~/.config/sublime-text-2/Packages/
+
+* Windows:
+
+        %APPDATA%/Sublime Text 2/Packages/
+
 
 ## Install Requirements
 
 Less2Css requires lessc to compile less to css.
 
-### Mac OS X / Linux(Ubuntu/Debian…)
+#### Windows / Mac OS X / Linux(Ubuntu/Debian…)
 
 1. Install [NodeJS](http://nodejs.org)
 2. Install npm([NodeJS Package Manager](https://npmjs.org/doc/README.html))
@@ -31,10 +50,3 @@ Less2Css requires lessc to compile less to css.
 ## 
     npm install less -gd
     
-
-### Windows
-
-1. Clone [less.js-windows](https://github.com/duncansmart/less.js-windows)
-2. Add the path of your less.js-windows to PATH environment variable([How to?](http://msdn.microsoft.com/en-us/library/ee537574.aspx)).
-
-[中文版详细安装教程](http://fdream.net/blog/article/783.aspx)
