@@ -4,12 +4,19 @@
 Sublime Text 2 Plugin to compile less files to css on save
 Requires lessc installed on PATH
 
+On a side note give big thanks to [timdouglas](https://github.com/timdouglas/sublime-less2css) for his work on this plugin
+This is work in process, have added new features do to my workflow. Hope someone find this helpful.
+
+
 ## Features
 
  * Automatically compile less -> css on save when editing a .less file in sublime
  * Reports compilation errors
  * Compile all less files in a directory to css files
+ 
  * Compile one file with less '@import'
+ * Multi project support
+ 
  
 NB This plugin requires lessc to be in your execution path 
 

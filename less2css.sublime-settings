@@ -12,8 +12,10 @@
  * EX.
  *
  *	"settings":
- *   {
- *   	"oneFile": " Path to your .less file with @import "
+ *	{
+ *		"oneFile": " Path to your .less file with @import for onefile compile "
+ *		"lessBaseDir": " Path to less dir ", // don't need this if oneFile is enabled
+ *		"outputDir": " Path to output dir "
  *   }
  *
  *

@@ -10,24 +10,27 @@ class Compiler:
 	# for command 'LessToCssCommand' and 'AutoLessToCssCommand'
 	def convertOne(self, is_auto_save = False):
 		fn = self.view.file_name().encode("utf_8")
+		localview = self.view
 		if not fn.endswith(".less"):
 			return ''
-		
-		thisview = self.view
+
 		settings = sublime.load_settings('less2css.sublime-settings')
-		base_dir = settings.get("lessBaseDir")
-		output_dir = settings.get("outputDir")
-		one_file = thisview.settings().get('oneFile', settings.get('oneFile'))
+		base_dir = localview.settings().get('lessBaseDir', settings.get("lessBaseDir"))
+		output_dir = localview.settings().get('outputDir', settings.get("outputDir"))
+		#input one less file for compiling
+		one_file = localview.settings().get('oneFile', settings.get('oneFile'))
 		minimised = settings.get("minify", True)
 		auto_compile = settings.get("autoCompile", True)
-
-		if one_file != False:
-			fn = one_file
 
 		if auto_compile == False and is_auto_save == True:
 			return ''
 
-		dirs = self.parseBaseDirs(base_dir, output_dir)
+		dirs = self.parseBaseDirs(base_dir, output_dir, one_file)
+		
+		if one_file != False:
+			fn = dirs['one']
+			dirs['less'] = dirs['project'] + '\less'
+		
 		return self.convertLess2Css(dirs = dirs, file = fn, minimised = minimised)
 
 	# for command 'AllLessToCssCommand'
@@ -76,6 +79,7 @@ class Compiler:
 		sub_path = css.replace(dirs['less'] + os.path.sep, '')
 		css = os.path.join(dirs['css'], sub_path)
 
+
 		# create directories
 		output_dir = os.path.dirname(css)
 		if not os.path.isdir(output_dir):
@@ -97,9 +101,9 @@ class Compiler:
 			# change command from lessc to lessc.cmd on Windows,
 			# only lessc.cmd works but lessc doesn't
 			cmd[0] = 'lessc.cmd'
-
+		
 		#run compiler
-		p = subprocess.Popen(cmd, stdout = subprocess.PIPE, stderr = subprocess.PIPE) #not sure if node outputs on stderr or stdout so capture both
+		p = subprocess.Popen(cmd, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=True) #not sure if node outputs on stderr or stdout so capture both
 		stdout, stderr = p.communicate()
 
 		#blank lines and control characters
@@ -120,7 +124,7 @@ class Compiler:
 
 	# try to find project folder,
 	# and normalize relative paths such as /a/b/c/../d to /a/b/d
-	def parseBaseDirs(self, base_dir = './', output_dir = ''): 
+	def parseBaseDirs(self, base_dir = './', output_dir = '', one_file = ''): 
 		fn = self.view.file_name().encode("utf_8")
 		file_dir = os.path.dirname(fn)
 
@@ -143,5 +147,8 @@ class Compiler:
 		if not output_dir.startswith('/'):
 			output_dir = os.path.normpath(os.path.join(proj_dir, output_dir))
 		
-		return { 'project': proj_dir, 'less': base_dir, 'css' : output_dir }
+		if one_file != False:
+			if not one_file.startswith('/'):
+				one_file = os.path.normpath(os.path.join(proj_dir, one_file))
 
+		return { 'project': proj_dir, 'less': base_dir, 'css' : output_dir, 'one' : one_file }
