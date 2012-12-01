@@ -9,15 +9,19 @@
  *
  *
  * To Compile one file, with all less imports edit your .sublime-project
- * EX.
  *
- *	"settings":
- *	{
- *		"oneFile": " Path to your .less file with @import for onefile compile "
+ *	"oneFile": " Path to your .less file with @import for onefile compile "
  *		"lessBaseDir": " Path to less dir ", // don't need this if oneFile is enabled
  *		"outputDir": " Path to output dir "
- *   }
  *
+ * Looks something like this
+ *
+ *	"settings": 
+ *	{
+ *		"oneFile": "./less/style.less",
+ *		"lessBaseDir": "./less",
+ *		"outputDir": "./css"
+ *	}
  *
  *
  * */

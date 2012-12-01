@@ -29,8 +29,8 @@ class Compiler:
 		
 		if one_file != False:
 			fn = dirs['one']
-			dirs['less'] = dirs['project'] + '\less'
-		
+			dirs['less'] = os.path.dirname(dirs['one'])
+
 		return self.convertLess2Css(dirs = dirs, file = fn, minimised = minimised)
 
 	# for command 'AllLessToCssCommand'
@@ -74,11 +74,10 @@ class Compiler:
 
 		if not less.endswith(".less"):
 			return ''
-
+		
 		css = re.sub('\.less$', '.css', less)
 		sub_path = css.replace(dirs['less'] + os.path.sep, '')
 		css = os.path.join(dirs['css'], sub_path)
-
 
 		# create directories
 		output_dir = os.path.dirname(css)
